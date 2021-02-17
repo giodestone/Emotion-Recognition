@@ -1,0 +1,52 @@
+﻿<Window x:Class="EmotionRecognitionMLNet.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmotionRecognitionMLNet"
+        mc:Ignorable="d"
+        Title="Facial Recognition" Height="860" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="301*"/>
+            <RowDefinition Height="114*"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="InputImage" Margin="10,25,7,10"/>
+        <ListBox x:Name="PredictedEmotionsListBox" Height="121" Margin="10,0,7,14" VerticalAlignment="Bottom" Grid.Row="1"/>
+        <Label Content="Other Predicted Emotions" HorizontalAlignment="Left" Margin="10,0,0,140" VerticalAlignment="Bottom" Height="26" Width="146" Grid.Row="1"/>
+        <Menu Height="20" VerticalAlignment="Top">
+            <MenuItem Header="Benchmarks" Height="20">
+                <MenuItem x:Name="RunBenchmarksMenuItem" Header="Run Benchmarks" Height="20" Click="RunBenchmarksMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="FaceDataModeMenuItem" Header="Face Data Storage Mode">
+                <MenuItem x:Name="FaceData1MenuItem" Header="Face Data 1" HorizontalAlignment="Left" IsCheckable="True" IsChecked="True" Click="FaceData1MenuItem_Click"/>
+                <MenuItem x:Name="FaceData2MenuItem" Header="Face Data 2" HorizontalAlignment="Left" IsCheckable="True" Click="FaceData2MenuItem_Click"/>
+                <MenuItem x:Name="FaceData3MenuItem" Header="Face Data 3" HorizontalAlignment="Left" IsCheckable="True" Click="FaceData3MenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+        <Grid Margin="10,0,7,171" Height="25" VerticalAlignment="Bottom" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90*"/>
+                <ColumnDefinition Width="14*"/>
+                <ColumnDefinition Width="207*"/>
+                <ColumnDefinition Width="17*"/>
+                <ColumnDefinition Width="110*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="119*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="EvaluateModelButton" Content="Evaluate Model" Click="EvaluateModelButton_Click" IsEnabled="False" Grid.Column="6" Margin="1,0"/>
+            <Button x:Name="PredictEmotionButton" Content="Predict Emotion" IsEnabled="False" Click="PredictEmotionButton_Click" Grid.Column="4" Margin="1,0,0,0"/>
+            <Button x:Name="LoadImageToPredict" Content="Load Image To Predict Emotion From" Click="LoadImageClicked" IsDefault="True" IsEnabled="False" Grid.Column="2"/>
+            <Button x:Name="TrainModelButton" Content="Train Model" Click="TrainModelButton_Click"/>
+        </Grid>
+        <Grid Margin="10,0,10,201" Height="25" VerticalAlignment="Bottom" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="127*"/>
+                <ColumnDefinition Width="445*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Predicted Emotion:" FontWeight="Bold"/>
+            <Label x:Name="PredictedEmotionMainLabel" Content="None" Grid.Column="1"/>
+        </Grid>
+
+    </Grid>
+</Window>

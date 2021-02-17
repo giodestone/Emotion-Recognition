@@ -1,0 +1,24 @@
+﻿<Window x:Class="EmotionRecognitionMLNet.EvaluationMetrics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmotionRecognitionMLNet"
+        mc:Ignorable="d"
+        Title="Evaluation Metrics" Height="382" Width="630
+        ">
+    <Grid>
+        <TextBlock x:Name="ConfusionMatrixTextBlock" Margin="10,36,10,0" TextWrapping="Wrap" Text="Confusion Matrix" VerticalAlignment="Top" Height="200" FontFamily="Consolas"/>
+        <Label Content="Micro Accuracy:" HorizontalAlignment="Left" Margin="10,0,0,84" VerticalAlignment="Bottom"/>
+        <Label Content="Macro Accuracy:" HorizontalAlignment="Left" Margin="10,0,0,62" Height="26" VerticalAlignment="Bottom"/>
+        <Label Content="Log Loss:" HorizontalAlignment="Left" Margin="10,0,0,40" Height="26" VerticalAlignment="Bottom"/>
+        <Label Content="Log Loss Reduction:" HorizontalAlignment="Left" Margin="10,0,0,19" Height="26" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="MicroAccuracyTextBlock" HorizontalAlignment="Left" Margin="109,0,0,89" TextWrapping="Wrap" Text="Not Evaluated" VerticalAlignment="Bottom" Width="100"/>
+        <TextBlock x:Name="MacroAccuracyTextBlock" HorizontalAlignment="Left" Margin="112,0,0,67" TextWrapping="Wrap" Text="Not Evaluated" Width="100" Height="16" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="LogLossTextBlock" HorizontalAlignment="Left" Margin="73,0,0,45" TextWrapping="Wrap" Text="Not Evaluated" VerticalAlignment="Bottom" Width="100"/>
+        <TextBlock x:Name="LogLossReductionTextBlock" HorizontalAlignment="Left" Margin="130,0,0,24" TextWrapping="Wrap" Text="Not Evaluated" Width="100" Height="16" VerticalAlignment="Bottom"/>
+        <Button x:Name="CloseWindowButton" Content="Close" Margin="0,0,10,14" Click="CloseWindowButton_Click" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom"/>
+        <Label Content="Confusion Matrix" Margin="10,10,10,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

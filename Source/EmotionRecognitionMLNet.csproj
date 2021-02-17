@@ -1,0 +1,655 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.ML.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.props" Condition="Exists('packages\Microsoft.ML.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.props')" />
+  <Import Project="packages\Microsoft.ML.CpuMath.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.CpuMath.props" Condition="Exists('packages\Microsoft.ML.CpuMath.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.CpuMath.props')" />
+  <Import Project="packages\DlibDotNet.19.18.0.20200429\build\DlibDotNet.props" Condition="Exists('packages\DlibDotNet.19.18.0.20200429\build\DlibDotNet.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C5F086FC-928F-4C4F-817D-F97D44191344}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EmotionRecognitionMLNet</RootNamespace>
+    <AssemblyName>EmotionRecognitionMLNet</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DlibDotNet, Version=19.18.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\DlibDotNet.19.18.0.20200429\lib\netstandard2.0\DlibDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ML.1.5.0-preview2\lib\netstandard2.0\Microsoft.ML.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.CpuMath, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ML.CpuMath.1.5.0-preview2\lib\netstandard2.0\Microsoft.ML.CpuMath.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ML.1.5.0-preview2\lib\netstandard2.0\Microsoft.ML.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.DataView, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ML.DataView.1.5.0-preview2\lib\netstandard2.0\Microsoft.ML.DataView.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.KMeansClustering, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ML.1.5.0-preview2\lib\netstandard2.0\Microsoft.ML.KMeansClustering.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.PCA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ML.1.5.0-preview2\lib\netstandard2.0\Microsoft.ML.PCA.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.StandardTrainers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ML.1.5.0-preview2\lib\netstandard2.0\Microsoft.ML.StandardTrainers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ML.Transforms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ML.1.5.0-preview2\lib\netstandard2.0\Microsoft.ML.Transforms.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.CodeDom, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.CodeDom.4.7.0\lib\net461\System.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Collections.Immutable.1.7.1\lib\net461\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Dataflow.4.11.1\lib\net461\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Content Include="..\packages\Microsoft.ML.CpuMath.1.4.0\runtimes\win-x64\nativeassets\netstandard2.0\*.dll" Condition="'$(PlatformTarget)' == 'x64'">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+      <Link>%(Filename)%(Extension)</Link>
+    </Content>
+    <Content Include="..\packages\Microsoft.ML.CpuMath.1.4.0\runtimes\win-x86\nativeassets\netstandard2.0\*.dll" Condition="'$(PlatformTarget)' == 'x86'">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+      <Link>%(Filename)%(Extension)</Link>
+    </Content>
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="StatConfusionMatrix.cs" />
+    <Compile Include="StatValue.cs" />
+    <Page Include="EvaluationMetrics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Benchmarker.cs" />
+    <Compile Include="CamCapture.cs" />
+    <Compile Include="EvaluationMetrics.xaml.cs">
+      <DependentUpon>EvaluationMetrics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FaceData1.cs" />
+    <Compile Include="FaceData2.cs" />
+    <Compile Include="FaceData3.cs" />
+    <Compile Include="FaceOutput.cs" />
+    <Compile Include="MachineLearning.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="feature_vectors.csv" />
+    <None Include="feature_vectors_test_set.csv" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="shape_predictor_68_face_landmarks.dat" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="input-old.jpg" />
+    <Resource Include="input.jpg" />
+    <Resource Include="MUG Images\006_an_000_0024.jpg" />
+    <Resource Include="MUG Images\006_an_000_0025.jpg" />
+    <Resource Include="MUG Images\006_an_000_0026.jpg" />
+    <Resource Include="MUG Images\006_an_000_0030.jpg" />
+    <Resource Include="MUG Images\006_an_000_0050.jpg" />
+    <Resource Include="MUG Images\006_di_000_0029.jpg" />
+    <Resource Include="MUG Images\006_di_000_0031.jpg" />
+    <Resource Include="MUG Images\006_di_000_0034.jpg" />
+    <Resource Include="MUG Images\006_fe_001_0021.jpg" />
+    <Resource Include="MUG Images\006_fe_001_0024.jpg" />
+    <Resource Include="MUG Images\006_fe_001_0035.jpg" />
+    <Resource Include="MUG Images\006_ha_004_0019.jpg" />
+    <Resource Include="MUG Images\006_ha_004_0028.jpg" />
+    <Resource Include="MUG Images\006_ne_001_0010.jpg" />
+    <Resource Include="MUG Images\006_sa_001_0021.jpg" />
+    <Resource Include="MUG Images\006_sa_001_0024.jpg" />
+    <Resource Include="MUG Images\006_su_001_0018.jpg" />
+    <Resource Include="MUG Images\006_su_001_0020.jpg" />
+    <Resource Include="MUG Images\006_su_001_0028.jpg" />
+    <Resource Include="MUG Images\007_an_001_0026.jpg" />
+    <Resource Include="MUG Images\007_an_001_0029.jpg" />
+    <Resource Include="MUG Images\007_an_001_0039.jpg" />
+    <Resource Include="MUG Images\007_di_001_0023.jpg" />
+    <Resource Include="MUG Images\007_di_001_0025.jpg" />
+    <Resource Include="MUG Images\007_di_001_0027.jpg" />
+    <Resource Include="MUG Images\007_di_001_0038.jpg" />
+    <Resource Include="MUG Images\007_fe_002_0012.jpg" />
+    <Resource Include="MUG Images\007_fe_002_0015.jpg" />
+    <Resource Include="MUG Images\007_ha_002_0013.jpg" />
+    <Resource Include="MUG Images\007_ha_002_0015.jpg" />
+    <Resource Include="MUG Images\007_ha_002_0018.jpg" />
+    <Resource Include="MUG Images\007_ha_002_0025.jpg" />
+    <Resource Include="MUG Images\007_ha_002_0048.jpg" />
+    <Resource Include="MUG Images\007_ha_002_0050.jpg" />
+    <Resource Include="MUG Images\007_ne_001_0020.jpg" />
+    <Resource Include="MUG Images\007_sa_002_0018.jpg" />
+    <Resource Include="MUG Images\007_sa_002_0023.jpg" />
+    <Resource Include="MUG Images\007_sa_002_0045.jpg" />
+    <Resource Include="MUG Images\007_su_001_0023.jpg" />
+    <Resource Include="MUG Images\007_su_001_0027.jpg" />
+    <Resource Include="MUG Images\007_su_001_0035.jpg" />
+    <Resource Include="MUG Images\007_su_001_0039.jpg" />
+    <Resource Include="MUG Images\008_an_002_0019.jpg" />
+    <Resource Include="MUG Images\008_an_002_0022.jpg" />
+    <Resource Include="MUG Images\008_di_002_0020.jpg" />
+    <Resource Include="MUG Images\008_di_002_0023.jpg" />
+    <Resource Include="MUG Images\008_di_002_0050.jpg" />
+    <Resource Include="MUG Images\008_fe_000_0020.jpg" />
+    <Resource Include="MUG Images\008_fe_000_0025.jpg" />
+    <Resource Include="MUG Images\008_ha_002_0018.jpg" />
+    <Resource Include="MUG Images\008_ha_002_0020.jpg" />
+    <Resource Include="MUG Images\008_ha_002_0023.jpg" />
+    <Resource Include="MUG Images\008_ne_000_0001.jpg" />
+    <Resource Include="MUG Images\008_sa_002_0016.jpg" />
+    <Resource Include="MUG Images\008_sa_002_0022.jpg" />
+    <Resource Include="MUG Images\008_sa_002_0061.jpg" />
+    <Resource Include="MUG Images\008_su_001_0014.jpg" />
+    <Resource Include="MUG Images\008_su_001_0019.jpg" />
+    <Resource Include="MUG Images\009_an_002_0019.jpg" />
+    <Resource Include="MUG Images\009_di_003_0020.jpg" />
+    <Resource Include="MUG Images\009_di_003_0030.jpg" />
+    <Resource Include="MUG Images\009_fe_000_0032.jpg" />
+    <Resource Include="MUG Images\009_ha_004_0015.jpg" />
+    <Resource Include="MUG Images\009_ha_004_0017.jpg" />
+    <Resource Include="MUG Images\009_ha_004_0022.jpg" />
+    <Resource Include="MUG Images\009_ne_000_0011.jpg" />
+    <Resource Include="MUG Images\009_sa_000_0019.jpg" />
+    <Resource Include="MUG Images\009_sa_000_0023.jpg" />
+    <Resource Include="MUG Images\009_su_002_0030.jpg" />
+    <Resource Include="MUG Images\009_su_002_0065.jpg" />
+    <Resource Include="MUG Images\009_su_003_0021.jpg" />
+    <Resource Include="MUG Images\009_su_003_0023.jpg" />
+    <Resource Include="MUG Images\010_an_001_0023.jpg" />
+    <Resource Include="MUG Images\010_an_001_0031.jpg" />
+    <Resource Include="MUG Images\010_di_000_0012.jpg" />
+    <Resource Include="MUG Images\010_di_000_0014.jpg" />
+    <Resource Include="MUG Images\010_di_000_0020.jpg" />
+    <Resource Include="MUG Images\010_di_000_0028.jpg" />
+    <Resource Include="MUG Images\010_fe_001_0023.jpg" />
+    <Resource Include="MUG Images\010_fe_001_0030.jpg" />
+    <Resource Include="MUG Images\010_ha_002_0013.jpg" />
+    <Resource Include="MUG Images\010_ha_002_0018.jpg" />
+    <Resource Include="MUG Images\010_ha_002_0029.jpg" />
+    <Resource Include="MUG Images\010_ha_002_0040.jpg" />
+    <Resource Include="MUG Images\010_ne_001_0011.jpg" />
+    <Resource Include="MUG Images\010_sa_003_0010.jpg" />
+    <Resource Include="MUG Images\010_sa_003_0016.jpg" />
+    <Resource Include="MUG Images\010_sa_003_0035.jpg" />
+    <Resource Include="MUG Images\010_su_002_0007.jpg" />
+    <Resource Include="MUG Images\010_su_002_0016.jpg" />
+    <Resource Include="MUG Images\013_an_001_0020.jpg" />
+    <Resource Include="MUG Images\013_di_001_0021.jpg" />
+    <Resource Include="MUG Images\013_di_001_0024.jpg" />
+    <Resource Include="MUG Images\013_fe_001_0040.jpg" />
+    <Resource Include="MUG Images\013_ha_002_0015.jpg" />
+    <Resource Include="MUG Images\013_ha_002_0025.jpg" />
+    <Resource Include="MUG Images\013_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\013_sa_002_0030.jpg" />
+    <Resource Include="MUG Images\014_an_002_0018.jpg" />
+    <Resource Include="MUG Images\014_di_002_0022.jpg" />
+    <Resource Include="MUG Images\014_di_002_0024.jpg" />
+    <Resource Include="MUG Images\014_di_002_0028.jpg" />
+    <Resource Include="MUG Images\014_fe_000_0016.jpg" />
+    <Resource Include="MUG Images\014_ha_002_0019.jpg" />
+    <Resource Include="MUG Images\014_ha_002_0023.jpg" />
+    <Resource Include="MUG Images\014_ha_002_0050.jpg" />
+    <Resource Include="MUG Images\014_ne_002_0004.jpg" />
+    <Resource Include="MUG Images\014_sa_001_0026.jpg" />
+    <Resource Include="MUG Images\014_sa_001_0057.jpg" />
+    <Resource Include="MUG Images\014_su_004_0029.jpg" />
+    <Resource Include="MUG Images\014_su_004_0035.jpg" />
+    <Resource Include="MUG Images\014_su_004_0059.jpg" />
+    <Resource Include="MUG Images\015_an_003_0024.jpg" />
+    <Resource Include="MUG Images\015_an_003_0043.jpg" />
+    <Resource Include="MUG Images\015_di_001_0016.jpg" />
+    <Resource Include="MUG Images\015_di_001_0048.jpg" />
+    <Resource Include="MUG Images\015_di_001_0052.jpg" />
+    <Resource Include="MUG Images\015_fe_001_0016.jpg" />
+    <Resource Include="MUG Images\015_fe_001_0044.jpg" />
+    <Resource Include="MUG Images\015_ha_000_0014.jpg" />
+    <Resource Include="MUG Images\015_ha_000_0018.jpg" />
+    <Resource Include="MUG Images\015_ha_000_0041.jpg" />
+    <Resource Include="MUG Images\015_ne_001_0022.jpg" />
+    <Resource Include="MUG Images\015_sa_000_0014.jpg" />
+    <Resource Include="MUG Images\015_sa_000_0032.jpg" />
+    <Resource Include="MUG Images\015_su_003_0015.jpg" />
+    <Resource Include="MUG Images\015_su_003_0026.jpg" />
+    <Resource Include="MUG Images\016_an_000_0034.jpg" />
+    <Resource Include="MUG Images\016_an_000_0051.jpg" />
+    <Resource Include="MUG Images\016_di_000_0024.jpg" />
+    <Resource Include="MUG Images\016_di_000_0030.jpg" />
+    <Resource Include="MUG Images\016_ha_004_0037.jpg" />
+    <Resource Include="MUG Images\016_ha_004_0038.jpg" />
+    <Resource Include="MUG Images\016_ne_001_0000.jpg" />
+    <Resource Include="MUG Images\016_sa_001_0014.jpg" />
+    <Resource Include="MUG Images\016_sa_001_0026.jpg" />
+    <Resource Include="MUG Images\016_sa_001_0039.jpg" />
+    <Resource Include="MUG Images\016_su_002_0013.jpg" />
+    <Resource Include="MUG Images\016_su_002_0016.jpg" />
+    <Resource Include="MUG Images\017_an_002_0035.jpg" />
+    <Resource Include="MUG Images\017_di_001_0024.jpg" />
+    <Resource Include="MUG Images\017_di_001_0036.jpg" />
+    <Resource Include="MUG Images\017_di_001_0043.jpg" />
+    <Resource Include="MUG Images\017_ha_002_0022.jpg" />
+    <Resource Include="MUG Images\017_ha_002_0028.jpg" />
+    <Resource Include="MUG Images\017_ha_002_0046.jpg" />
+    <Resource Include="MUG Images\017_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\017_su_002_0018.jpg" />
+    <Resource Include="MUG Images\017_su_002_0020.jpg" />
+    <Resource Include="MUG Images\017_su_002_0032.jpg" />
+    <Resource Include="MUG Images\018_an_000_0015.jpg" />
+    <Resource Include="MUG Images\018_an_000_0028.jpg" />
+    <Resource Include="MUG Images\018_di_003_0008.jpg" />
+    <Resource Include="MUG Images\018_di_003_0011.jpg" />
+    <Resource Include="MUG Images\018_di_003_0016.jpg" />
+    <Resource Include="MUG Images\018_fe_000_0016.jpg" />
+    <Resource Include="MUG Images\018_ha_002_0013.jpg" />
+    <Resource Include="MUG Images\018_ha_002_0015.jpg" />
+    <Resource Include="MUG Images\018_ha_002_0025.jpg" />
+    <Resource Include="MUG Images\018_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\018_sa_004_0024.jpg" />
+    <Resource Include="MUG Images\018_sa_004_0030.jpg" />
+    <Resource Include="MUG Images\018_su_002_0018.jpg" />
+    <Resource Include="MUG Images\018_su_002_0025.jpg" />
+    <Resource Include="MUG Images\019_an_002_0023.jpg" />
+    <Resource Include="MUG Images\019_an_002_0030.jpg" />
+    <Resource Include="MUG Images\019_di_001_0021.jpg" />
+    <Resource Include="MUG Images\019_di_001_0027.jpg" />
+    <Resource Include="MUG Images\019_fe_001_0015.jpg" />
+    <Resource Include="MUG Images\019_fe_001_0029.jpg" />
+    <Resource Include="MUG Images\019_ha_002_0017.jpg" />
+    <Resource Include="MUG Images\019_ha_002_0020.jpg" />
+    <Resource Include="MUG Images\019_ha_002_0035.jpg" />
+    <Resource Include="MUG Images\019_ha_002_0053.jpg" />
+    <Resource Include="MUG Images\019_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\019_sa_002_0014.jpg" />
+    <Resource Include="MUG Images\019_sa_002_0026.jpg" />
+    <Resource Include="MUG Images\019_su_002_0014.jpg" />
+    <Resource Include="MUG Images\019_su_002_0017.jpg" />
+    <Resource Include="MUG Images\019_su_002_0021.jpg" />
+    <Resource Include="MUG Images\020_an_003_0009.jpg" />
+    <Resource Include="MUG Images\020_an_003_0012.jpg" />
+    <Resource Include="MUG Images\020_an_003_0017.jpg" />
+    <Resource Include="MUG Images\020_di_002_0018.jpg" />
+    <Resource Include="MUG Images\020_di_002_0025.jpg" />
+    <Resource Include="MUG Images\020_di_002_0046.jpg" />
+    <Resource Include="MUG Images\020_fe_001_0014.jpg" />
+    <Resource Include="MUG Images\020_fe_001_0019.jpg" />
+    <Resource Include="MUG Images\020_ha_002_0011.jpg" />
+    <Resource Include="MUG Images\020_ha_002_0014.jpg" />
+    <Resource Include="MUG Images\020_ha_002_0019.jpg" />
+    <Resource Include="MUG Images\020_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\020_sa_002_0052.jpg" />
+    <Resource Include="MUG Images\020_sa_002_0056.jpg" />
+    <Resource Include="MUG Images\020_su_000_0009.jpg" />
+    <Resource Include="MUG Images\020_su_000_0018.jpg" />
+    <Resource Include="MUG Images\021_an_001_0019.jpg" />
+    <Resource Include="MUG Images\021_an_001_0023.jpg" />
+    <Resource Include="MUG Images\021_di_000_0021.jpg" />
+    <Resource Include="MUG Images\021_di_000_0024.jpg" />
+    <Resource Include="MUG Images\021_di_000_0029.jpg" />
+    <Resource Include="MUG Images\021_fe_003_0015.jpg" />
+    <Resource Include="MUG Images\021_ha_002_0017.jpg" />
+    <Resource Include="MUG Images\021_ha_002_0019.jpg" />
+    <Resource Include="MUG Images\021_ha_002_0021.jpg" />
+    <Resource Include="MUG Images\021_ha_002_0026.jpg" />
+    <Resource Include="MUG Images\021_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\021_su_001_0018.jpg" />
+    <Resource Include="MUG Images\021_su_001_0022.jpg" />
+    <Resource Include="MUG Images\025_an_003_0021.jpg" />
+    <Resource Include="MUG Images\025_an_003_0024.jpg" />
+    <Resource Include="MUG Images\025_di_001_0012.jpg" />
+    <Resource Include="MUG Images\025_di_001_0020.jpg" />
+    <Resource Include="MUG Images\025_di_001_0035.jpg" />
+    <Resource Include="MUG Images\025_fe_001_0036.jpg" />
+    <Resource Include="MUG Images\025_ha_001_0021.jpg" />
+    <Resource Include="MUG Images\025_ha_001_0023.jpg" />
+    <Resource Include="MUG Images\025_ha_001_0026.jpg" />
+    <Resource Include="MUG Images\025_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\025_su_000_0015.jpg" />
+    <Resource Include="MUG Images\025_su_000_0041.jpg" />
+    <Resource Include="MUG Images\026_an_002_0016.jpg" />
+    <Resource Include="MUG Images\026_an_002_0026.jpg" />
+    <Resource Include="MUG Images\026_di_003_0014.jpg" />
+    <Resource Include="MUG Images\026_di_003_0022.jpg" />
+    <Resource Include="MUG Images\026_ha_002_0012.jpg" />
+    <Resource Include="MUG Images\026_ha_002_0017.jpg" />
+    <Resource Include="MUG Images\026_ha_002_0032.jpg" />
+    <Resource Include="MUG Images\026_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\026_sa_004_0022.jpg" />
+    <Resource Include="MUG Images\026_su_000_0019.jpg" />
+    <Resource Include="MUG Images\026_su_000_0022.jpg" />
+    <Resource Include="MUG Images\027_an_002_0014.jpg" />
+    <Resource Include="MUG Images\027_an_002_0022.jpg" />
+    <Resource Include="MUG Images\027_an_002_0025.jpg" />
+    <Resource Include="MUG Images\027_di_002_0009.jpg" />
+    <Resource Include="MUG Images\027_di_002_0011.jpg" />
+    <Resource Include="MUG Images\027_di_002_0027.jpg" />
+    <Resource Include="MUG Images\027_fe_002_0010.jpg" />
+    <Resource Include="MUG Images\027_fe_002_0024.jpg" />
+    <Resource Include="MUG Images\027_fe_002_0037.jpg" />
+    <Resource Include="MUG Images\027_ha_002_0009.jpg" />
+    <Resource Include="MUG Images\027_ha_002_0015.jpg" />
+    <Resource Include="MUG Images\027_ne_000_0015.jpg" />
+    <Resource Include="MUG Images\027_su_002_0010.jpg" />
+    <Resource Include="MUG Images\027_su_002_0020.jpg" />
+    <Resource Include="MUG Images\028_fe_000_0040.jpg" />
+    <Resource Include="MUG Images\028_fe_000_0046.jpg" />
+    <Resource Include="MUG Images\028_ha_000_0018.jpg" />
+    <Resource Include="MUG Images\028_ha_000_0020.jpg" />
+    <Resource Include="MUG Images\028_ha_000_0024.jpg" />
+    <Resource Include="MUG Images\028_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\028_su_002_0016.jpg" />
+    <Resource Include="MUG Images\028_su_002_0033.jpg" />
+    <Resource Include="MUG Images\029_an_002_0010.jpg" />
+    <Resource Include="MUG Images\029_an_002_0014.jpg" />
+    <Resource Include="MUG Images\029_di_002_0010.jpg" />
+    <Resource Include="MUG Images\029_di_002_0031.jpg" />
+    <Resource Include="MUG Images\029_fe_001_0012.jpg" />
+    <Resource Include="MUG Images\029_fe_001_0023.jpg" />
+    <Resource Include="MUG Images\029_ha_001_0010.jpg" />
+    <Resource Include="MUG Images\029_ha_001_0012.jpg" />
+    <Resource Include="MUG Images\029_ha_001_0022.jpg" />
+    <Resource Include="MUG Images\029_ha_001_0050.jpg" />
+    <Resource Include="MUG Images\029_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\029_sa_000_0016.jpg" />
+    <Resource Include="MUG Images\029_sa_000_0023.jpg" />
+    <Resource Include="MUG Images\029_su_000_0009.jpg" />
+    <Resource Include="MUG Images\029_su_000_0014.jpg" />
+    <Resource Include="MUG Images\030_an_003_0019.jpg" />
+    <Resource Include="MUG Images\030_an_003_0024.jpg" />
+    <Resource Include="MUG Images\030_di_002_0011.jpg" />
+    <Resource Include="MUG Images\030_di_002_0018.jpg" />
+    <Resource Include="MUG Images\030_fe_001_0018.jpg" />
+    <Resource Include="MUG Images\030_fe_001_0027.jpg" />
+    <Resource Include="MUG Images\030_ha_003_0024.jpg" />
+    <Resource Include="MUG Images\030_ha_003_0033.jpg" />
+    <Resource Include="MUG Images\030_ne_000_0048.jpg" />
+    <Resource Include="MUG Images\030_sa_000_0018.jpg" />
+    <Resource Include="MUG Images\030_sa_000_0038.jpg" />
+    <Resource Include="MUG Images\030_su_001_0014.jpg" />
+    <Resource Include="MUG Images\030_su_001_0016.jpg" />
+    <Resource Include="MUG Images\030_su_001_0025.jpg" />
+    <Resource Include="MUG Images\084_an_003_0013.jpg" />
+    <Resource Include="MUG Images\084_an_003_0015.jpg" />
+    <Resource Include="MUG Images\084_an_003_0025.jpg" />
+    <Resource Include="MUG Images\084_an_003_0035.jpg" />
+    <Resource Include="MUG Images\084_di_003_0017.jpg" />
+    <Resource Include="MUG Images\084_di_003_0024.jpg" />
+    <Resource Include="MUG Images\084_di_003_0034.jpg" />
+    <Resource Include="MUG Images\084_fe_001_0033.jpg" />
+    <Resource Include="MUG Images\084_ha_002_0011.jpg" />
+    <Resource Include="MUG Images\084_ha_002_0013.jpg" />
+    <Resource Include="MUG Images\084_ha_002_0020.jpg" />
+    <Resource Include="MUG Images\084_ha_002_0039.jpg" />
+    <Resource Include="MUG Images\084_ne_000_0022.jpg" />
+    <Resource Include="MUG Images\084_sa_000_0015.jpg" />
+    <Resource Include="MUG Images\084_sa_000_0020.jpg" />
+    <Resource Include="MUG Images\084_sa_000_0039.jpg" />
+    <Resource Include="MUG Images\084_su_004_0019.jpg" />
+    <Resource Include="MUG Images\084_su_004_0022.jpg" />
+    <Resource Include="MUG Images\084_su_004_0025.jpg" />
+    <Resource Include="MUG Images\084_su_004_0040.jpg" />
+    <Resource Include="MUG Images\084_su_004_0050.jpg" />
+    <Resource Include="MUG Images\085_an_007_0015.jpg" />
+    <Resource Include="MUG Images\085_an_007_0039.jpg" />
+    <Resource Include="MUG Images\085_di_003_0013.jpg" />
+    <Resource Include="MUG Images\085_di_003_0016.jpg" />
+    <Resource Include="MUG Images\085_di_003_0027.jpg" />
+    <Resource Include="MUG Images\085_ha_003_0010.jpg" />
+    <Resource Include="MUG Images\085_ha_003_0012.jpg" />
+    <Resource Include="MUG Images\085_ha_003_0016.jpg" />
+    <Resource Include="MUG Images\085_ha_003_0039.jpg" />
+    <Resource Include="MUG Images\085_ha_003_0042.jpg" />
+    <Resource Include="MUG Images\085_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\085_sa_002_0050.jpg" />
+    <Resource Include="MUG Images\085_sa_002_0060.jpg" />
+    <Resource Include="MUG Images\085_su_003_0022.jpg" />
+    <Resource Include="MUG Images\085_su_003_0039.jpg" />
+    <Resource Include="MUG Images\085_su_003_0043.jpg" />
+    <Resource Include="MUG Images\087_an_000_0032.jpg" />
+    <Resource Include="MUG Images\087_an_000_0035.jpg" />
+    <Resource Include="MUG Images\087_an_000_0055.jpg" />
+    <Resource Include="MUG Images\087_di_000_0016.jpg" />
+    <Resource Include="MUG Images\087_di_000_0018.jpg" />
+    <Resource Include="MUG Images\087_di_000_0042.jpg" />
+    <Resource Include="MUG Images\087_fe_003_0127.jpg" />
+    <Resource Include="MUG Images\087_fe_003_0130.jpg" />
+    <Resource Include="MUG Images\087_fe_003_0150.jpg" />
+    <Resource Include="MUG Images\087_ha_000_0023.jpg" />
+    <Resource Include="MUG Images\087_ha_000_0025.jpg" />
+    <Resource Include="MUG Images\087_ha_000_0035.jpg" />
+    <Resource Include="MUG Images\087_ha_000_0051.jpg" />
+    <Resource Include="MUG Images\087_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\087_sa_001_0017.jpg" />
+    <Resource Include="MUG Images\087_sa_001_0020.jpg" />
+    <Resource Include="MUG Images\087_sa_001_0029.jpg" />
+    <Resource Include="MUG Images\087_su_002_0019.jpg" />
+    <Resource Include="MUG Images\087_su_002_0024.jpg" />
+    <Resource Include="MUG Images\088_an_001_0034.jpg" />
+    <Resource Include="MUG Images\088_an_001_0054.jpg" />
+    <Resource Include="MUG Images\088_di_000_0014.jpg" />
+    <Resource Include="MUG Images\088_di_000_0044.jpg" />
+    <Resource Include="MUG Images\088_fe_002_0016.jpg" />
+    <Resource Include="MUG Images\088_fe_002_0022.jpg" />
+    <Resource Include="MUG Images\088_fe_002_0050.jpg" />
+    <Resource Include="MUG Images\088_ha_000_0015.jpg" />
+    <Resource Include="MUG Images\088_ha_000_0022.jpg" />
+    <Resource Include="MUG Images\088_ha_000_0032.jpg" />
+    <Resource Include="MUG Images\088_ha_000_0057.jpg" />
+    <Resource Include="MUG Images\088_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\088_sa_001_0020.jpg" />
+    <Resource Include="MUG Images\088_sa_001_0030.jpg" />
+    <Resource Include="MUG Images\088_sa_001_0042.jpg" />
+    <Resource Include="MUG Images\088_su_000_0015.jpg" />
+    <Resource Include="MUG Images\088_su_000_0025.jpg" />
+    <Resource Include="MUG Images\102_an_000_0016.jpg" />
+    <Resource Include="MUG Images\102_an_000_0026.jpg" />
+    <Resource Include="MUG Images\102_an_000_0032.jpg" />
+    <Resource Include="MUG Images\102_an_000_0038.jpg" />
+    <Resource Include="MUG Images\102_an_000_0048.jpg" />
+    <Resource Include="MUG Images\102_an_000_0101.jpg" />
+    <Resource Include="MUG Images\102_di_000_0127.jpg" />
+    <Resource Include="MUG Images\102_di_000_0130.jpg" />
+    <Resource Include="MUG Images\102_di_000_0135.jpg" />
+    <Resource Include="MUG Images\102_di_000_0139.jpg" />
+    <Resource Include="MUG Images\102_di_000_0149.jpg" />
+    <Resource Include="MUG Images\102_di_000_0157.jpg" />
+    <Resource Include="MUG Images\102_di_000_0161.jpg" />
+    <Resource Include="MUG Images\102_di_000_0226.jpg" />
+    <Resource Include="MUG Images\102_fe_000_0236.jpg" />
+    <Resource Include="MUG Images\102_fe_000_0244.jpg" />
+    <Resource Include="MUG Images\102_fe_000_0248.jpg" />
+    <Resource Include="MUG Images\102_fe_000_0256.jpg" />
+    <Resource Include="MUG Images\102_fe_000_0260.jpg" />
+    <Resource Include="MUG Images\102_fe_000_0268.jpg" />
+    <Resource Include="MUG Images\102_fe_000_0300.jpg" />
+    <Resource Include="MUG Images\102_fe_000_0304.jpg" />
+    <Resource Include="MUG Images\102_fe_000_0312.jpg" />
+    <Resource Include="MUG Images\102_fe_000_0336.jpg" />
+    <Resource Include="MUG Images\102_ha_000_0388.jpg" />
+    <Resource Include="MUG Images\102_ha_000_0400.jpg" />
+    <Resource Include="MUG Images\102_ha_000_0404.jpg" />
+    <Resource Include="MUG Images\102_ha_000_0412.jpg" />
+    <Resource Include="MUG Images\102_ha_000_0420.jpg" />
+    <Resource Include="MUG Images\102_ha_000_0464.jpg" />
+    <Resource Include="MUG Images\102_ha_000_0468.jpg" />
+    <Resource Include="MUG Images\102_ha_000_0500.jpg" />
+    <Resource Include="MUG Images\102_ne_000_0000.jpg" />
+    <Resource Include="MUG Images\102_sa_000_0936.jpg" />
+    <Resource Include="MUG Images\102_sa_000_0947.jpg" />
+    <Resource Include="MUG Images\102_sa_000_0967.jpg" />
+    <Resource Include="MUG Images\102_sa_000_0999.jpg" />
+    <Resource Include="MUG Images\102_sa_000_1019.jpg" />
+    <Resource Include="MUG Images\102_su_000_0714.jpg" />
+    <Resource Include="MUG Images\102_su_000_0732.jpg" />
+    <Resource Include="MUG Images\102_su_000_0738.jpg" />
+    <Resource Include="MUG Images\102_su_000_0744.jpg" />
+    <Resource Include="MUG Images\102_su_000_0784.jpg" />
+    <Resource Include="MUG Images\102_su_000_0792.jpg" />
+    <Resource Include="MUG Images\102_su_000_0808.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\DlibDotNet.19.18.0.20200429\build\DlibDotNet.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\DlibDotNet.19.18.0.20200429\build\DlibDotNet.props'))" />
+    <Error Condition="!Exists('packages\DlibDotNet.19.18.0.20200429\build\DlibDotNet.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\DlibDotNet.19.18.0.20200429\build\DlibDotNet.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.ML.CpuMath.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.CpuMath.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ML.CpuMath.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.CpuMath.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.ML.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ML.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.ML.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ML.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.targets'))" />
+  </Target>
+  <Import Project="packages\DlibDotNet.19.18.0.20200429\build\DlibDotNet.targets" Condition="Exists('packages\DlibDotNet.19.18.0.20200429\build\DlibDotNet.targets')" />
+  <Import Project="packages\Microsoft.ML.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.targets" Condition="Exists('packages\Microsoft.ML.1.5.0-preview2\build\netstandard2.0\Microsoft.ML.targets')" />
+</Project>

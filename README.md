@@ -6,7 +6,7 @@ A C#/ML.NET application which uses machine learning and facial recognition to id
 ## Running
 [Download](https://github.com/giodestone/Emotion-Recognition/releases)
 
-The Cohn-Kanade set must be downloaded and placed in the same folder as the `.exe`. It can be requested from [here](http://www.pitt.edu/~emotion/ck-spread.htm). Other data sets works, such as [MUG](https://mug.ee.auth.gr/fed/), may be used - though the results will differ. Generally any face data set with people facing forwards will work.
+The Cohn-Kanade set must be downloaded and placed in the same folder as the `.exe`. It can be requested from [here](http://www.pitt.edu/~emotion/ck-spread.htm) or downloaded from [here](https://github.com/spenceryee/CS229). Other data sets works, such as [MUG](https://mug.ee.auth.gr/fed/). Generally any face data set with people facing forwards will work.
 
 ## Using Source
 The `shape_predictor_68_face_landmarks.zip` inside of `Source/` must be extracted into the same destination when received.

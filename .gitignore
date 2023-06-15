@@ -1,0 +1,7 @@
+﻿Source/.vs
+Source/bin
+Source/CK+
+Source/packages
+!Source/packages/repositories.config
+Source/shape_predictor_68_face_landmarks.dat
+Source/obj

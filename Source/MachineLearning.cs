@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Windows;
 using Dlib = DlibDotNet.Dlib;
 using Point = DlibDotNet.Point;
 
@@ -45,21 +46,23 @@ static class MachineLearning
         using (var fd = Dlib.GetFrontalFaceDetector())
         using (var sp = ShapePredictor.Deserialize(GetFile(ShapePredictorFileName).FullName))
         {
-            // Get all images
-            DirectoryInfo mugImgDirInfo = GetDirectory("MUG Images");
-            DirectoryInfo googleImgDirInfo = GetDirectory("Google Set");
-            DirectoryInfo cohnKanadeeImgDirInfo = GetDirectory("Cohn-Kanade Images");
+            var dirInfos = GetDataSetDirectoryInfos();
+
+            if (dirInfos.Count == 0)
+            {
+                MessageBox.Show("Unable to find any image data sets. Program exiting.", "Error Finding Datasets",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                throw new FileNotFoundException("Unable to find any image data sets!");
+            }
 
             List<FileInfo> imageFiles = new List<FileInfo>();
-            foreach (var directoryInfo in cohnKanadeeImgDirInfo.GetDirectories())
+            foreach (var dir in dirInfos)
             {
-                imageFiles.AddRange(directoryInfo.GetFiles("*.png"));
+                foreach (var directoryInfo in dir.GetDirectories())
+                {
+                    imageFiles.AddRange(directoryInfo.GetFiles("*.png"));
+                }
             }
-            //foreach (var directoryInfo in googleImgDirInfo.GetDirectories())
-            //{
-            //    imageFiles.AddRange(directoryInfo.GetFiles("*.jpg"));
-            //}
-            //imageFiles.AddRange(mugImgDirInfo.GetFiles("*.jpg"));
 
             foreach (var imageFile in imageFiles)
             {
@@ -127,6 +130,54 @@ static class MachineLearning
             // Close file
             csvFile.Close();
         }
+    }
+
+    private static List<DirectoryInfo> GetDataSetDirectoryInfos()
+    {
+        // Get all images
+        List<DirectoryInfo> dirInfos = new List<DirectoryInfo>();
+
+        try
+        {
+            var mugImgDirInfo = GetDirectory("MUG Images");
+            dirInfos.Add(mugImgDirInfo);
+        }
+        catch
+        {
+            // ignored
+        }
+
+        try
+        {
+            var googleImgDirInfo = GetDirectory("Google Set");
+            dirInfos.Add(googleImgDirInfo);
+        }
+        catch
+        {
+            // ignored
+        }
+
+        try
+        {
+            var cohnKanadeeImgDirInfo = GetDirectory("Cohn-Kanade Images");
+            dirInfos.Add(cohnKanadeeImgDirInfo);
+        }
+        catch
+        {
+            // ignored
+        }
+
+        try
+        {
+            var cohnKanadeeImgDirInfo = GetDirectory("CK+");
+            dirInfos.Add(cohnKanadeeImgDirInfo);
+        }
+        catch
+        {
+            // ignored
+        }
+
+        return dirInfos;
     }
 
     public static void DrawPointsOfLandmarks(FileInfo image)
@@ -469,7 +520,7 @@ static class MachineLearning
 
     static string GetLabel(FileInfo img)
     {
-        if (img.Directory.Parent.Name == "Google Set" || img.Directory.Parent.Name == "Cohn-Kanade Images")
+        if (img.Directory.Parent.Name == "Google Set" || img.Directory.Parent?.Name == "Cohn-Kanade Images" || img.Directory.Parent?.Name == "CK+")
         {
             return GetLabelGoogleSetOrCohnKanade(img.Directory.Name);
         }
@@ -538,7 +589,7 @@ static class MachineLearning
         {
             return "fear";
         }
-        else if (parentDirectoryName.Contains("happy") || parentDirectoryName.Contains("joy"))
+        else if (parentDirectoryName.Contains("happy") || parentDirectoryName.Contains("joy") || parentDirectoryName.Contains("happiness"))
         {
             return "happy";
         }
@@ -577,10 +628,17 @@ static class MachineLearning
             foreach (var face in faces)
             {
                 var shape = sp.Detect(img, face);
-                return GetFaceDataPoints3(ref shape,
-                    getLabel
-                        ? GetLabel(imageFileInfo)
-                        : "Not getting label, see argument this function was called with.");
+                try
+                {
+                    return GetFaceDataPoints3(ref shape,
+                        getLabel
+                            ? GetLabel(imageFileInfo)
+                            : "Not getting label, see argument this function was called with.");
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -606,10 +664,18 @@ static class MachineLearning
             foreach (var face in faces)
             {
                 var shape = sp.Detect(img, face);
-                return GetFaceDataPoints2(ref shape,
-                    getLabel
-                        ? GetLabel(imageFileInfo)
-                        : "Not getting label, see argument this function was called with.");
+
+                try
+                {
+                    return GetFaceDataPoints2(ref shape,
+                        getLabel
+                            ? GetLabel(imageFileInfo)
+                            : "Not getting label, see argument this function was called with.");
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 
@@ -636,10 +702,17 @@ static class MachineLearning
             {
                 var shape = sp.Detect(img, face);
 
-                return GetFaceDataPoints1(ref shape,
-                    getLabel
-                        ? GetLabel(imageFileInfo)
-                        : "Not getting label, see argument this function was called with.");
+                try
+                {
+                    return GetFaceDataPoints1(ref shape,
+                        getLabel
+                            ? GetLabel(imageFileInfo)
+                            : "Not getting label, see argument this function was called with.");
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
         Debug.WriteLine($"Unable to get facial feature from {imageFileInfo.Name} as no faces were found!");
@@ -843,7 +916,7 @@ static class MachineLearning
     {
         DirectoryInfo currentDir = new DirectoryInfo(Environment.CurrentDirectory);
         int attempts = 0;
-        const int maxUpDirectories = 4;
+        const int maxUpDirectories = 5;
         do
         {
             var foundFileInfo = currentDir.GetFiles().ToList().Find(file => file.Name == fileName);
@@ -858,6 +931,13 @@ static class MachineLearning
             }
 
         } while (attempts < maxUpDirectories);
+
+        // To help fix issue.
+        if (fileName == ShapePredictorFileName)
+        {
+            MessageBox.Show(
+                $"You need to unzip the file {ShapePredictorFileName.Remove(ShapePredictorFileName.Length - 4)}.zip before continuing. The program will now exit.", "Error Finding Shape Predictor", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
 
         if (throwExceptionIfNotFound)
         {
